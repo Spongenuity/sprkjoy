@@ -1,0 +1,11 @@
+export declare function isFocusable(element: Element): boolean;
+export declare function isTabbable(element: Element): boolean;
+export declare function getAllFocusableIn<T extends Element>(container: T): T[];
+export declare function getFirstFocusableIn<T extends Element>(container: T): T | null;
+export declare function getAllTabbableIn<T extends Element>(container: T, fallbackToFocusable?: boolean): T[];
+export declare function getFirstTabbableIn<T extends Element>(container: T, fallbackToFocusable?: boolean): T | null;
+export declare function getLastTabbableIn<T extends Element>(container: T, fallbackToFocusable?: boolean): T | null;
+export declare function getNextTabbableIn<T extends Element>(container: T, fallbackToFocusable?: boolean): T | null;
+export declare function getPreviousTabbableIn<T extends Element>(container: T, fallbackToFocusable?: boolean): T | null;
+export declare function focusNextTabbableIn<T extends Element>(container: T, fallbackToFocusable?: boolean): void;
+export declare function focusPreviousTabbableIn<T extends Element>(container: T, fallbackToFocusable?: boolean): void;

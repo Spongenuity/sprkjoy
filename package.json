@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "babel-plugin-styled-components": "^1.10.4",
+    "reakit": "^1.0.0-beta.3",
+    "styled-components": "^4.3.2"
+  }
+}
