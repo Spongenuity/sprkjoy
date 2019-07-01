@@ -3,20 +3,16 @@ import PropTypes from "prop-types"
 import React from "react"
 import styled from "styled-components"
 
+import {CentralColumn ,Heading } from "./styles"
+
 const HeaderStyle = styled.header `
 background: rebeccapurple;
 `
 
 const Header = ({ siteTitle }) => (
   <HeaderStyle>
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
+    <CentralColumn style={{height:"100%"}}>
+      <Heading style={{ margin: 0, lineHeight:"70px" }}>
         <Link
           to="/"
           style={{
@@ -26,8 +22,8 @@ const Header = ({ siteTitle }) => (
         >
           {siteTitle}
         </Link>
-      </h1>
-    </div>
+      </Heading>
+    </CentralColumn>
   </HeaderStyle>
 )
 

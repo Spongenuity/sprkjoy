@@ -13,6 +13,8 @@ import styled, { ThemeProvider} from "styled-components"
 import theme from "./theme"
 
 import Header from "./header"
+import {CentralColumn} from "./styles"
+
 import "./layout.css"
 
 const Footer = styled.footer `
@@ -45,7 +47,9 @@ const Layout = ({ children }) => {
 
         <main>{children}</main>
         <Footer>
+          <CentralColumn>
           © {new Date().getFullYear()}, Built with ❤️ on the internet
+          </CentralColumn>
         </Footer>
 
       </Body>
