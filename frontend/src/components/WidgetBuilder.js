@@ -27,20 +27,29 @@ const RoundButton = styled.button`
     &:focus {
         outline:none;
     }
+
+    &:first-child {
+        margin-right:10px
+    }
 `
 
 const Layout = styled.div`
     width: 450px;
     display: grid;
     grid-template-rows: 1fr 1fr;
+    
 `
+const Question = styled(Heading)`
+text-align: center;
+`
+
 
 const WidgetBuilder = () => {
     const [typeOfJoy, setTypeOfJoy] = useState("")
     return (
     <>
     <Layout>
-        <Heading h2 > 
+        <Question h2 > 
             Did this {""}
             <Input 
                 type="text" 
@@ -48,7 +57,7 @@ const WidgetBuilder = () => {
                 onChange={event => setTypeOfJoy(event.target.value)}
             />
             spark joy?
-        </Heading>
+        </Question>
         <Flex row>
             <RoundButton>👍</RoundButton>
             <RoundButton>👎</RoundButton>
