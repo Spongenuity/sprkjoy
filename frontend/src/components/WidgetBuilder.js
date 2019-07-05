@@ -1,4 +1,5 @@
 import React, {useState} from "react"
+import ReactDOM from "react-dom"
 import styled from "styled-components"
 import { Button } from "rebass"
 
@@ -59,11 +60,15 @@ const Widget = ({ editable, value, update }) => (
     <WidgetLayout>
         <Question h2 > 
         Did this {""}
+        { editable ?
             <Input 
             type="text" 
             value={value} 
             onChange={event => update(event.target.value)}
-            />{""}
+            /> 
+            :
+            value }
+            {""}
         spark joy?
         </Question>
         <Flex row>
@@ -77,9 +82,9 @@ const WidgetBuilder = () => {
     const [typeOfJoy, setTypeOfJoy] = useState("")
 
     function exportWidget() {
-
-        copyToClipboard("Hello World")
-
+        const el = document.createElement('div')
+        ReactDOM.render(<Widget value={typeOfJoy} />, el)
+        copyToClipboard(el.innerHTML)
     }
 
     return (
