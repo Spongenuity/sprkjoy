@@ -10,7 +10,7 @@ import WidgetBuilder from "../components/WidgetBuilder"
 
 const IndexPage = () => (
   <Layout>
-    <SEO/>
+    <SEO title="Home"/>
     <CentralColumn>
       <p>Ask if it sparked joy.</p>
       <WidgetBuilder />
