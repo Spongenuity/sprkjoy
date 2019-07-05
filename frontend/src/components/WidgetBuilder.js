@@ -31,6 +31,8 @@ const RoundButton = styled.button`
 
 const Layout = styled.div`
     width: 450px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
 `
 
 const WidgetBuilder = () => {
@@ -48,8 +50,8 @@ const WidgetBuilder = () => {
             spark joy?
         </Heading>
         <Flex row>
-            <RoundButton>👎</RoundButton>
             <RoundButton>👍</RoundButton>
+            <RoundButton>👎</RoundButton>
         </Flex>
     </Layout>
     </>
