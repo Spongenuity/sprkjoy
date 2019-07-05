@@ -5,7 +5,7 @@ import { Heading } from "./styles"
 
 const WidgetBuilder = () => {
     return <>
-    <Heading h2>Did this X spark joy?</Heading>
+    <Heading h2 >Did this X spark joy?</Heading>
     </>
 }
 
