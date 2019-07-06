@@ -90,6 +90,9 @@ const WidgetBuilder = () => {
 
         const sheet = new ServerStyleSheet()
         const html = copyToClipboard(el.innerHTML)
+        const styleTags = sheet.getStyleTags()
+
+        console.log(sheet.collectStyles(widget))
 
         // copyToClipboard(el.innerHTML)
 
