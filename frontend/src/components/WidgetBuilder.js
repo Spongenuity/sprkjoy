@@ -1,6 +1,6 @@
-import React, {useState} from "react"
+import React, {useState, useRef} from "react"
 import ReactDOM from "react-dom"
-import styled from "styled-components"
+import styled, { ServerStyleSheet } from "styled-components"
 import { Button } from "rebass"
 import ButterToast, { Cinnamon } from "butter-toast"
 
@@ -70,7 +70,7 @@ const Widget = ({ editable, value, update }) => (
             /> 
             :
             value }
-            {""}
+            {" "}
         spark joy?
         </Question>
         <Flex row>
@@ -84,10 +84,14 @@ const WidgetBuilder = () => {
     const [typeOfJoy, setTypeOfJoy] = useState("")
 
     function exportWidget() {
+        const widget = <Widget value={typeOfJoy} />
         const el = document.createElement('div')
-        ReactDOM.render(<Widget value={typeOfJoy} />, el)
+        ReactDOM.render(widget, el)
 
-        copyToClipboard(el.innerHTML)
+        const sheet = new ServerStyleSheet()
+        const html = copyToClipboard(el.innerHTML)
+
+        // copyToClipboard(el.innerHTML)
 
         ButterToast.raise({
             content: (
