@@ -1,0 +1,24 @@
+{
+  "name": "spark-joy-backend",
+  "version": "0.1.0",
+  "description": "The backend for the Spark Joy project",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "deploy": "npm run build && sls deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spongenuity/sprkjoy.git"
+  },
+  "author": "Samer Dabra",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spongenuity/sprkjoy/issues"
+  },
+  "homepage": "https://github.com/spongenuity/sprkjoy#readme",
+  "dependencies": {
+    "@types/aws-lambda": "^8.10.27",
+    "@types/node": "^12.0.12"
+  }
+}
