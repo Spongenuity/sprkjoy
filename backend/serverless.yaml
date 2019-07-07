@@ -23,7 +23,7 @@ functions:
     handler: dist/graphql.handler
     events:
         - http:
-            path: hello
+            path: graphql
             method: GET
             cors: true
 
@@ -35,10 +35,6 @@ resources:
         AttributeDefinitions:
           - AttributeName: widgetId
             AttributeType: S
-          - AttributeName: thumbsup
-            AttributeType: N
-          - AttributeName: thumbsdown
-            AttributeType: N
         KeySchema:
           - AttributeName: widgetId
             KeyType: HASH
