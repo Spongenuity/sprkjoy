@@ -1,8 +1,15 @@
 import { ApolloServer, gql } from "apollo-server-lambda"
 
 const typeDefs = gql`
-    type Query {
-        hello: String
+    type Widget {
+        widgetId: String!
+        name: String
+        thumbsup: Int
+        thumbsdown: Int
+    }
+
+    type Mutation {
+        saveWidget(name: String!): Widget
     }
 `;
 
