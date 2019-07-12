@@ -31,12 +31,21 @@ const resolvers = {
 
             const result = await new Promise((resolve, reject) => {
                 dynamoDB.update({
-                    TableName: process.env.DYNAMOTABLE!,
+                    TableName: process.env.DYNAMODB_TABLE!,
                     Key: { widgetId },
-                    UpdateExpression: "SET widgetId = :widgetId name = :name",
+                    UpdateExpression:
+                        "SET widgetId = :widgetId, widgetName = :name",
                     ExpressionAttributeValues: {
                         ":widgetId": widgetId,
-                        ":name": name
+                        ":widgetName": name
+                    }
+                },
+                (err, result) => {
+                    if (err) {
+                        console.log(err);
+                        reject(err)
+                    } else{
+                        resolve(result)
                     }
                 });
             });
