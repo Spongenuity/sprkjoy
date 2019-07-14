@@ -1,4 +1,5 @@
-const SERVER_URI = "https://zudyxto849.execute-api.us-east-1.amazonaws.com/dev/graphql"
+const SERVER_URI =
+  "https://zudyxto849.execute-api.us-east-1.amazonaws.com/dev/graphql"
 
 module.exports = {
   siteMetadata: {
