@@ -1,4 +1,3 @@
-
 service: spark-joy
 
 provider:
@@ -6,31 +5,30 @@ provider:
   runtime: nodejs8.10
   stage: dev
   environment:
-      DYNAMODB_TABLE: ${self:service}-db-${self:provider.stage}
+    DYNAMODB_TABLE: ${self:service}-db-${self:provider.stage}
   iamRoleStatements:
-      - Effect: Allow
-        Action:
-            - dynamodb:Query
-            - dynamodb:Scan
-            - dynamodb:GetItem
-            - dynamodb:PutItem
-            - dynamodb:UpdateItem
-            - dynamodb:DeleteItem
-        Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+    - Effect: Allow
+      Action:
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:${opt:region, self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
 
 functions:
   graphql:
     handler: dist/graphql.handler
     events:
-        - http:
-            path: graphql
-            method: GET
-            cors: true
-        - http:
-            path: graphql
-            method: POST
-            cors: true
-
+      - http:
+          path: graphql
+          method: GET
+          cors: true
+      - http:
+          path: graphql
+          method: POST
+          cors: true
 
 resources:
   Resources:
@@ -44,6 +42,6 @@ resources:
           - AttributeName: widgetId
             KeyType: HASH
         ProvisionedThroughput:
-            ReadCapacityUnits: 1
-            WriteCapacityUnits: 1
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
         TableName: ${self:provider.environment.DYNAMODB_TABLE}
