@@ -6,6 +6,7 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 import { CentralColumn } from "../components/styles"
 
+import WidgetList from "../components/WidgetList"
 import WidgetBuilder from "../components/WidgetBuilder"
 
 const IndexPage = () => (
@@ -15,6 +16,7 @@ const IndexPage = () => (
       <p>Did your thing spark joy? Ask the fans and get some feedback!</p>
       <p>Fill out the widget, export to HTML, insert anywhere. </p>
       <WidgetBuilder />
+      <WidgetList/>
     </CentralColumn>
   </Layout>
 )

@@ -1,3 +1,5 @@
+const SERVER_URI = "https://zudyxto849.execute-api.us-east-1.amazonaws.com/dev/graphql"
+
 module.exports = {
   siteMetadata: {
     title: `Spark Joy`,
@@ -11,6 +13,15 @@ module.exports = {
       options: {
         name: `images`,
         path: `${__dirname}/src/images`,
+      },
+    },
+    {
+      resolve: `gatsby-source-graphql`,
+      options: {
+        typeName: `WIDGET`,
+        fieldName: `widgetsapi`,
+        url: SERVER_URI,
+        refetchInterval: 60,
       },
     },
     `gatsby-transformer-sharp`,
@@ -27,7 +38,7 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
-    `gatsby-plugin-styled-components`
+    `gatsby-plugin-styled-components`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
