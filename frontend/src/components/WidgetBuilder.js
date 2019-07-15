@@ -1,23 +1,15 @@
 import React, { useState, useRef } from "react"
 import ReactDOM from "react-dom"
-import styled, { ServerStyleSheet } from "styled-components"
+import styled from "styled-components"
 import { Button } from "rebass"
+import { palette } from "styled-tools"
 import ButterToast, { Cinnamon } from "butter-toast"
-import gql from "graphql-tag"
 import { useApolloClient } from "react-apollo-hooks"
 
 import { Heading, Flex } from "./styles"
-import { palette } from "styled-tools"
-// import Layout from "./layout";
-import { copyToClipboard, getCSS } from "../utils"
 
-const SAVE_WIDGET_QUERY = gql`
-  mutation saveWidget($name: String!, $widgetId: String) {
-    saveWidget(name: $name, widgetId: $widgetId) {
-      widgetId
-    }
-  }
-`
+import { copyToClipboard, getCSS } from "../utils"
+import { SAVE_WIDGET_QUERY } from "../queries"
 
 const Input = styled.input`
   border: 0;
@@ -30,14 +22,14 @@ const Input = styled.input`
   }
 `
 
-const RoundButton = styled.button`
+const RoundButton = styled.a`
   border-radius: 100%;
-  border: 0px;
   font-size: ${palette("headings", 0)};
   line-height: ${palette("headings", 0)};
   width: 2em;
   height: 2em;
   cursor: pointer;
+  text-decoration: none;
 
   &:focus {
     outline: none;
@@ -45,10 +37,6 @@ const RoundButton = styled.button`
 
   &:first-child {
     margin-right: 10px;
-    padding-bottom: 20px;
-  }
-  &:nth-child(2) {
-    margin-left: 10px;
   }
 `
 
@@ -58,6 +46,7 @@ const Layout = styled.div`
   display: grid;
   grid-template-rows: 1fr 0.2fr;
 `
+
 const WidgetLayout = styled.div`
   width: 450px;
   display: grid;
@@ -67,35 +56,52 @@ const WidgetLayout = styled.div`
 const Question = styled(Heading)`
   text-align: center;
 `
-const Widget = React.forwardRef(({ editable, value, update }, ref) => (
-  <WidgetLayout ref={ref}>
-    <Question h2>
-      Did this {""}
-      {editable ? (
-        <Input
-          type="text"
-          value={value}
-          onChange={event => update(event.target.value)}
-        />
-      ) : (
-        value
-      )}{" "}
-      spark joy?
-    </Question>
-    <Flex row>
-      <RoundButton>👍</RoundButton>
-      <RoundButton>👎</RoundButton>
-    </Flex>
-  </WidgetLayout>
-))
+
+const Widget = React.forwardRef(
+  ({ widgetId, editable, value, update }, ref) => (
+    <WidgetLayout ref={ref}>
+      <Question h2>
+        Did this{" "}
+        {editable ? (
+          <Input
+            type="text"
+            value={value}
+            onChange={event => update(event.target.value)}
+          />
+        ) : (
+          value
+        )}{" "}
+        spark joy?
+      </Question>
+      <Flex row>
+        <RoundButton href={`/${widgetId}/thumbsdown`}>👎</RoundButton>
+        <RoundButton href={`/${widgetId}/thumbsup`}>👍</RoundButton>
+      </Flex>
+    </WidgetLayout>
+  )
+)
 
 const WidgetBuilder = () => {
   const [typeOfJoy, setTypeOfJoy] = useState("")
   const apolloClient = useApolloClient()
 
   async function exportWidget() {
+    const { data } = await apolloClient.mutate({
+      mutation: SAVE_WIDGET_QUERY,
+      variables: {
+        name: typeOfJoy,
+      },
+    })
+
     const widgetRef = React.createRef()
-    const widget = <Widget value={typeOfJoy} ref={widgetRef} />
+
+    const widget = (
+      <Widget
+        value={typeOfJoy}
+        widgetId={data.saveWidget.widgetId}
+        ref={widgetRef}
+      />
+    )
     const el = document.createElement("div")
     ReactDOM.render(widget, el)
 
@@ -104,35 +110,24 @@ const WidgetBuilder = () => {
 
     copyToClipboard(html)
 
-    const result = await apolloClient.mutate({
-      mutation: SAVE_WIDGET_QUERY,
-      variables: {
-        name: typeOfJoy,
-      },
-    })
-
-    console.log(result)
-
     ButterToast.raise({
       content: (
         <Cinnamon.Crisp
           scheme={Cinnamon.Crisp.SCHEME_BLUE}
           title="Copied to clipboard!"
-          content={() => <div> Paste into your favorite editor! </div>}
+          content={() => <div>👍 Paste HTML into your favorite editor</div>}
         />
       ),
     })
   }
 
   return (
-    <>
-      <Layout>
-        <Widget editable typeOfJoy={typeOfJoy} update={setTypeOfJoy} />
-        <Button bg="primary" onClick={exportWidget}>
-          Export
-        </Button>
-      </Layout>
-    </>
+    <Layout>
+      <Widget editable value={typeOfJoy} update={setTypeOfJoy} />
+      <Button bg="primary" onClick={exportWidget}>
+        Export
+      </Button>
+    </Layout>
   )
 }
 

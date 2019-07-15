@@ -31,11 +31,12 @@ exports.createPages = ({ graphql, actions }) => {
     `)
 
     result.data.widgetsapi.allWidget.forEach(({ widgetId }) => {
-        const componentPath = path.resolve("./src/pages/vote.js")
+      const componentPath = path.resolve("./src/pages/vote.js")
       createPage({
         path: `/${widgetId}/thumbsup`,
         component: componentPath,
         context: {
+          widgetId,
           voteType: "thumbsup",
         },
       })
@@ -43,6 +44,7 @@ exports.createPages = ({ graphql, actions }) => {
         path: `/${widgetId}/thumbsdown`,
         component: componentPath,
         context: {
+          widgetId,
           voteType: "thumbsdown",
         },
       })
