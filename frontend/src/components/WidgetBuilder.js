@@ -123,7 +123,7 @@ const WidgetBuilder = () => {
 
   return (
     <Layout>
-      <Widget editable value={typeOfJoy} update={setTypeOfJoy} />
+      <Widget editable value={typeOfJoy} update={setTypeOfJoy}/>
       <Button bg="primary" onClick={exportWidget}>
         Export
       </Button>
