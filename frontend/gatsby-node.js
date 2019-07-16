@@ -25,12 +25,13 @@ exports.createPages = ({ graphql, actions }) => {
         widgetsapi {
           allWidget {
             widgetId
+            name
           }
         }
       }
     `)
 
-    result.data.widgetsapi.allWidget.forEach(({ widgetId }) => {
+    result.data.widgetsapi.allWidget.forEach(({ widgetId, name }) => {
       const votePath = path.resolve("./src/pages/vote.js")
       const widgetPath = path.resolve("./src/pages/widget.js")
       createPage({
@@ -54,6 +55,7 @@ exports.createPages = ({ graphql, actions }) => {
         component: widgetPath,
         context: {
           widgetId,
+          name,
         },
       })
     })
