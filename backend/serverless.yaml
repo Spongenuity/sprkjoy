@@ -1,3 +1,5 @@
+tenant: samer
+app: spark-joy
 service: spark-joy
 
 provider:
