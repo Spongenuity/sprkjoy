@@ -29,6 +29,7 @@ const RoundButton = styled.a`
   width: 2em;
   height: 2em;
   cursor: pointer;
+  text-decoration: none;
 
   &:focus {
     outline: none;

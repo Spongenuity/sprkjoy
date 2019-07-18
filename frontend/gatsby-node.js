@@ -26,25 +26,25 @@ exports.createPages = ({ graphql, actions }) => {
           allWidget {
             widgetId
             name
-            
+            followupQuestions
           }
         }
       }
     `)
 
     result.data.widgetsapi.allWidget.forEach(
-      ({ widgetId, name }) => {
+      ({ widgetId, name, followupQuestions }) => {
         const votePath = path.resolve("./src/pages/vote.js")
         const widgetPath = path.resolve("./src/pages/widget.js")
 
-        // followupQuestions = JSON.parse(followupQuestions)
+        followupQuestions = JSON.parse(followupQuestions)
 
         createPage({
           path: `/${widgetId}/thumbsup`,
           component: votePath,
           context: {
             widgetId,
-            // followupQuestions,
+            followupQuestions,
             voteType: "thumbsup",
           },
         })
@@ -53,7 +53,7 @@ exports.createPages = ({ graphql, actions }) => {
           component: votePath,
           context: {
             widgetId,
-            // followupQuestions,
+            followupQuestions,
             voteType: "thumbsdown",
           },
         })
