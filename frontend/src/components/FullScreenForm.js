@@ -33,8 +33,14 @@ const BulletText = styled(Text)`
   display: inline;
 `
 
+const PosedInputGroup = posed.div({
+  preEnter: { y: -700, opacity: 0 },
+  enter: { y: 0, opacity: 1 },
+  exit: { y: 700, opacity: 0 },
+})
+
 const InputComponent = props => (
-  <InputBox>
+  <InputBox key={props.input.name}>
     <BulletText fontSize={[1, 2, 3]}>{props.index + 1}. 👉</BulletText>
     <Input
       fontSize={[3, 4, 5]}
@@ -57,7 +63,7 @@ const InputComponent = props => (
 
 function renderField({ index, id, label, type }) {
   return (
-    <div key={id}>
+    <PosedInputGroup key={`group_${id}`} initialPose="preEnter"> // could potentially be preEnterPose
       <Heading fontSize={[4, 5, 6]}>
         <label>{label}</label>
       </Heading>
@@ -70,7 +76,7 @@ function renderField({ index, id, label, type }) {
         index={index}
         // active={true}
       />
-    </div>
+    </PosedInputGroup>
   )
 }
 
@@ -91,10 +97,12 @@ export const FullScreenForm = ({ onSubmit, followupQuestions }) => {
       onSubmit={handleSubmit}
       render={({ handleSubmit }) => (
         <form onSubmit={handleSubmit}>
-          {renderField({
-            index: fieldIndex,
-            ...followupQuestions[fieldIndex],
-          })}
+          <PoseGroup>
+            {renderField({
+              index: fieldIndex,
+              ...followupQuestions[fieldIndex],
+            })}
+          </PoseGroup>
         </form>
       )}
     />
