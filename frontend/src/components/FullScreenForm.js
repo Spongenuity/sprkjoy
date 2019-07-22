@@ -39,12 +39,15 @@ const InputComponent = props => (
     <Input
       fontSize={[3, 4, 5]}
       placeholder="Listen to your gut :)"
+      autoComplete="off"
       {...props.input}
     />
     <PoseGroup>
-      {props.meta.active ? (
+      {
+        //   props.meta.active
+          true ? (
         <ExplainerText fontSize={[0.5, 1, 1]} key="explainer">
-          <strong>Enter</strong> to submit
+          <strong>Enter</strong> to submit or <Button variant="helper">OK</Button>
         </ExplainerText>
       ) : null}
     </PoseGroup>
@@ -64,6 +67,7 @@ function renderField({ index, id, label, type }) {
         type="text"
         initialValue=""
         index={index}
+        // active={true}
       />
     </div>
   )
@@ -85,7 +89,7 @@ export const FullScreenForm = ({ onSubmit, followupQuestions }) => {
     <Form
       onSubmit={handleSubmit}
       render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit} autoComplete="off">
+        <form onSubmit={handleSubmit}>
           {renderField({
             index: fieldIndex,
             ...followupQuestions[fieldIndex],

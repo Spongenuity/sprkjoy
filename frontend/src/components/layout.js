@@ -9,8 +9,7 @@ import React from "react"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
 
-import styled, { ThemeProvider} from "styled-components"
-import theme from "./theme"
+import styled from "styled-components"
 
 import Header from "./header"
 import {CentralColumn} from "./styles"
@@ -43,7 +42,6 @@ const Layout = ({ children }) => {
   `)
 
   return (
-    <ThemeProvider theme={theme}>
       <Body>
       <Header siteTitle={data.site.siteMetadata.title} />
 
@@ -57,7 +55,6 @@ const Layout = ({ children }) => {
         <ButterToast position={{vertical:POS_TOP, horizontal:POS_RIGHT }}/>
 
       </Body>
-    </ThemeProvider>
   )
 }
 

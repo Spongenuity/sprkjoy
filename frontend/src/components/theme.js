@@ -4,5 +4,10 @@ export default {
     }, 
     colors: {
         primary: "#000000"
+    },
+    buttons: {
+        helper: {
+            backgroundColor: "#000000"
+        }
     }
 }
