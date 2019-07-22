@@ -7,7 +7,9 @@ export default {
     },
     buttons: {
         helper: {
-            backgroundColor: "#000000"
+            backgroundColor: "#000000",
+            padding: "0.2rem 0.5rem",
+            cursor:"pointer",
         }
     }
 }

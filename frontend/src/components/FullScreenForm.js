@@ -43,11 +43,12 @@ const InputComponent = props => (
       {...props.input}
     />
     <PoseGroup>
-      {
-        //   props.meta.active
-          true ? (
+      {props.meta.active ? (
         <ExplainerText fontSize={[0.5, 1, 1]} key="explainer">
-          <strong>Enter</strong> to submit or <Button variant="helper">OK</Button>
+          <strong>Enter</strong> to submit or{" "}
+          <Button variant="helper" type="submit">
+            OK ✓
+          </Button>
         </ExplainerText>
       ) : null}
     </PoseGroup>
