@@ -33,7 +33,9 @@ const BulletText = styled(Text)`
   display: inline;
 `
 
-const PosedInputGroup = posed.div({
+const PosedInputGroup = posed(styled(Box)`
+  height: 300px;
+`)({
   preEnter: { y: -700, opacity: 0 },
   enter: { y: 0, opacity: 1 },
   exit: { y: 700, opacity: 0 },
@@ -41,7 +43,7 @@ const PosedInputGroup = posed.div({
 
 const InputComponent = props => (
   <InputBox key={props.input.name}>
-    <BulletText fontSize={[1, 2, 3]}>{props.index + 1}. 👉</BulletText>
+    <BulletText fontSize={[1, 2, 3]}>{props.index + 1}. 👉 </BulletText>
     <Input
       fontSize={[3, 4, 5]}
       placeholder="Listen to your gut :)"
@@ -63,7 +65,8 @@ const InputComponent = props => (
 
 function renderField({ index, id, label, type }) {
   return (
-    <PosedInputGroup key={`group_${id}`} initialPose="preEnter"> // could potentially be preEnterPose
+    // could potentially be preEnterPose
+    <PosedInputGroup key={`group_${id}`} initialPose="preEnter">
       <Heading fontSize={[4, 5, 6]}>
         <label>{label}</label>
       </Heading>
@@ -84,27 +87,25 @@ export const FullScreenForm = ({ onSubmit, followupQuestions }) => {
   const [fieldIndex, setFieldIndex] = useState(0)
 
   function handleSubmit(values) {
-    if (fieldIndex >= followupQuestions.length - 1) {
-      console.log(values)
-      // onSubmit(values)
-    } else {
+    onSubmit(values)
+    if (fieldIndex < followupQuestions.length) {
       setFieldIndex(fieldIndex + 1)
     }
   }
 
-  return (
-    <Form
-      onSubmit={handleSubmit}
-      render={({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
-          <PoseGroup>
-            {renderField({
-              index: fieldIndex,
-              ...followupQuestions[fieldIndex],
-            })}
-          </PoseGroup>
-        </form>
-      )}
-    />
-  )
+    return (
+      <Form
+        onSubmit={handleSubmit}
+        render={({ handleSubmit }) => (
+          <form onSubmit={handleSubmit}>
+            <PoseGroup>
+              {renderField({
+                index: fieldIndex,
+                ...followupQuestions[fieldIndex],
+              })}
+            </PoseGroup>
+          </form>
+        )}
+      />
+    )
 }
