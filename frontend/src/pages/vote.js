@@ -75,11 +75,17 @@ const VotePage = ({ pageContext }) => {
     saveVote({ widgetId, voteType, apolloClient })
   }, [])
 
-  function onSubmit(values) {
-    if (Object.values(values).length >= followupQuestions.length) {
+  async function onSubmit(answers) {
+    if (Object.values(answers).length >= followupQuestions.length) {
       setShowThankYou(true)
     }
-    console.log(values)
+    await apolloClient.mutate({
+      mutation: SAVE_WIDGET_FEEDBACK_QUERY,
+      variables: {
+        widgetId,
+        answers: JSON.stringify(answers),
+      },
+    })
   }
 
   return (
