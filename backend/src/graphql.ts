@@ -129,7 +129,7 @@ const resolvers = {
             const { Attributes } = await updateItem({
                 TableName: process.env.FEEDBACKS_TABLE!,
                 Key: { widgetId },
-                UpdateExpression: "SET answers = :values",
+                UpdateExpression: "SET answers = :answers",
                 ExpressionAttributeValues: {
                     ":answers": answers
                 },
