@@ -18,6 +18,7 @@ const Login = () => {
   const { isAuthenticated } = auth
 
   if (isAuthenticated()) {
+    console.log(auth.getUser())
     return <Button bg="primary" onClick={auth.logout}>Logout {auth.getUserName()}</Button>
   } else {
     return <Button bg="primary" onClick={auth.login}>Login</Button>
