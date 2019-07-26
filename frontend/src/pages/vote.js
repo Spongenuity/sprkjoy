@@ -21,7 +21,7 @@ const FullScreen = styled.div`
 `
 
 async function saveVote({ widgetId, voteType, apolloClient }) {
-  await apolloClient.mutate({
+  return await apolloClient.mutate({
     mutation: WIDGET_VOTE_QUERY,
     variables: {
       widgetId: widgetId,
@@ -30,18 +30,6 @@ async function saveVote({ widgetId, voteType, apolloClient }) {
     },
   })
 }
-
-// Final submission method
-//
-// const onSubmit = async ({ widgetId, values, apolloClient }) => {
-//   await apolloClient.mutate({
-//     mutation: SAVE_WIDGET_FEEDBACK_QUERY,
-//     variables: {
-//       widgetId,
-//       values: JSON.stringify(values),
-//     },
-//   })
-// }
 
 const VoteTypeHeading = ({ voteType, name }) =>
   voteType === "thumbsup" ? (
@@ -72,10 +60,12 @@ const VotePage = ({ pageContext }) => {
   const { widgetId, voteType, followupQuestions, name } = pageContext
   const [showThankYou, setShowThankYou] = useState(false)
   const [voteId, setVoteId] = useState(uuidv4())
-  const [createdAt, setCreatedAt] = useState(new Date())
 
   useEffect(() => {
-    saveVote({ widgetId, voteId, voteType, apolloClient })
+    ;(async function() {
+      const result = await saveVote({ widgetId, voteType, apolloClient })
+      setVoteId(result.data.widgetVote.voteId)
+    })()
   }, [])
 
   async function onSubmit(answers) {
@@ -89,7 +79,6 @@ const VotePage = ({ pageContext }) => {
         widgetId,
         voteId,
         voteType,
-        createdAt,
         answers: JSON.stringify(answers),
       },
     })
